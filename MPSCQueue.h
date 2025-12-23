@@ -28,9 +28,9 @@ private:
     static constexpr size_t capacity = MPSC_QUEUE_CAPACITY;
     static constexpr size_t maxIndexMask = capacity -1;
     
-    std::atomic<size_t> readIndex{0};
-    std::atomic<size_t> commitWriteIndex{0};
-    std::atomic<size_t> reserveWriteIndex{0};
+    alignas(64) std::atomic<size_t> readIndex{0};
+    alignas(64) std::atomic<size_t> commitWriteIndex{0};
+    alignas(64) std::atomic<size_t> reserveWriteIndex{0};
     
     T* buf = nullptr;
 };
